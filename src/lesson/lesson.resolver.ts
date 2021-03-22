@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-import { ParseUUIDPipe, UsePipes } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Lesson } from './lesson.entity';
 import { CreateLessonInput, GetLessonsInput } from './lesson.input';
