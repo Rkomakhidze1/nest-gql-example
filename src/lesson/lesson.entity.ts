@@ -13,7 +13,7 @@ export class Lesson extends BaseEntity {
   _id: string;
 
   @PrimaryColumn()
-  id: number;
+  id: string;
 
   @Column()
   name: string;

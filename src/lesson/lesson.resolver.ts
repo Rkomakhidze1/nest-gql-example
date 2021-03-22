@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
+import { ParseUUIDPipe, UsePipes } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Lesson } from './lesson.entity';
+import { CreateLessonInput, GetLessonsInput } from './lesson.input';
 import { LessonService } from './lesson.service';
 import { LessonType } from './lesson.type';
 
@@ -8,18 +10,20 @@ import { LessonType } from './lesson.type';
 export class LessonResolver {
   constructor(private readonly lessonService: LessonService) {}
 
+  @Query(() => [LessonType])
+  getLessons() {
+    return this.lessonService.getLessons();
+  }
+
   @Query(() => LessonType)
-  lesson() {
-    return {
-      id: 1,
-      name: 'Math',
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
-    };
+  getLesson(@Args('getLessonInput') getLessonsInput: GetLessonsInput) {
+    return this.lessonService.getLesson(getLessonsInput);
   }
 
   @Mutation(() => LessonType)
-  createLesson(@Args('name') name: string): Promise<Lesson> {
-    return this.lessonService.createLesson(name, '12', '12');
+  createLesson(
+    @Args('createLessonInput') createLessonInput: CreateLessonInput,
+  ): Promise<Lesson> {
+    return this.lessonService.createLesson(createLessonInput);
   }
 }
